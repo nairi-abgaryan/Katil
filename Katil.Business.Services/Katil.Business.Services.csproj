@@ -1,0 +1,71 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <CodeAnalysisRuleSet>..\StyleCopeRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Configurations>Debug;Release;DevServer;StagingServer</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'StagingServer|AnyCPU' ">
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
+ 
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DevServer|AnyCPU' ">
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers.Error" Version="1.0.2" />
+    <PackageReference Include="Serilog" Version="2.7.1" />
+    <PackageReference Include="MailKit" Version="2.0.4" />
+    <PackageReference Include="AutoMapper" Version="7.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="4.0.1" />
+    <PackageReference Include="EasyNetQ" Version="3.3.5" />
+    <PackageReference Include="EasyNetQ.DI.Microsoft" Version="3.3.5" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Katil.Business.Entities\Katil.Business.Entities.csproj" />
+    <ProjectReference Include="..\Katil.Data.Model\Katil.Data.Model.csproj" />
+    <ProjectReference Include="..\Katil.Data.Repositories\Katil.Data.Repositories.csproj" />
+    <ProjectReference Include="..\Katil.Common.Utilities\Katil.Common.Utilities.csproj" />
+    <ProjectReference Include="..\Katil.Business.Services.IntegrationEvents\Katil.Business.Services.IntegrationEvents.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="DisputeStatusHandler\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="New Folder\MailNotificationJob.cs" />
+    <Compile Remove="Mapping\AmendmentMapping.cs" />
+    <Compile Remove="Mapping\EmailAttachmentMapping.cs" />
+    <Compile Remove="Mapping\HearingMapping.cs" />
+    <Compile Remove="Mapping\NoteMapping.cs" />
+    <Compile Remove="Mapping\TaskMapping.cs" />
+    <Compile Remove="Files\CommonFileService.cs" />
+    <Compile Remove="Files\FileDescriptionService.cs" />
+    <Compile Remove="Files\ICommonFileService.cs" />
+    <Compile Remove="Files\ILinkedFileService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\..\..\..\.nuget\packages\microsoft.identitymodel.tokens\5.2.0\lib\netstandard1.4\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\..\..\..\.nuget\packages\system.identitymodel.tokens.jwt\5.2.0\lib\netstandard1.4\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>

@@ -15,7 +15,7 @@ Make sure you have installed:
 {
     "ConnectionStrings": {
       "DbConnection": 
-        "Host={{localhost}}; Port={{5432}};Database={{ProjectName}};Username={{postgres}};Password={{postgres}};Integrated Security=false;"
+        "Host={{localhost}}; Port={{5432}};Database={{Katil}};Username={{postgres}};Password={{postgres}};Integrated Security=false;"
     },
     
     "MQ": {

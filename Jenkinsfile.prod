@@ -1,0 +1,38 @@
+pipeline {
+  agent any
+  
+  stages {
+    stage('Build Image') {
+      steps {
+        openshiftBuild(bldCfg: 'case-management-release', namespace: 'rtb-dms-tools', verbose: 'true')
+        openshiftBuild(bldCfg: 'pdf-generator-release', namespace: 'rtb-dms-tools', verbose: 'true')
+        openshiftBuild(bldCfg: 'email-generator-release', namespace: 'rtb-dms-tools', verbose: 'true')
+        openshiftBuild(bldCfg: 'email-notification-release', namespace: 'rtb-dms-tools', verbose: 'true')
+      }
+    }
+
+    stage('Deliver to Test') {
+      steps {
+        timeout(time:5, unit:'HOURS') {
+          input message: 'Deploy to test?', ok: 'Deploy!'
+        }
+        openshiftDeploy(depCfg: 'case-management', namespace: 'rtb-dms-test', verbose: 'true')
+        openshiftDeploy(depCfg: 'pdf-generator', namespace: 'rtb-dms-test', verbose: 'true')
+        openshiftDeploy(depCfg: 'email-generator', namespace: 'rtb-dms-test', verbose: 'true')
+        openshiftDeploy(depCfg: 'email-notification', namespace: 'rtb-dms-test', verbose: 'true')
+      }
+    }
+
+    stage('Deliver to Prod') {
+      steps {
+        timeout(time:5, unit:'HOURS') {
+          input message: 'Deploy to prod?', ok: 'Deploy!'
+        }
+        openshiftDeploy(depCfg: 'case-management', namespace: 'rtb-dms-prod', verbose: 'true')
+        openshiftDeploy(depCfg: 'pdf-generator', namespace: 'rtb-dms-prod', verbose: 'true')
+        openshiftDeploy(depCfg: 'email-generator', namespace: 'rtb-dms-prod', verbose: 'true')
+        openshiftDeploy(depCfg: 'email-notification', namespace: 'rtb-dms-prod', verbose: 'true')
+      }
+    }
+  }
+}

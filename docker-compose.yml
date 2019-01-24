@@ -1,0 +1,73 @@
+version: '3.4'
+
+services:
+  rabbit:
+    image: "rabbitmq:3-management"
+    hostname: rabbit
+    container_name: rabbit
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    ports:
+      - "4369:4369"
+      - "5671:5671"
+      - "5672:5672"
+      - "15671:15671"
+      - "15672:15672"
+      - "25672:25672"
+#    volumes:
+#      - "./Katil.Services/RabbitMQ/config/enabled_plugins:/etc/rabbitmq/enabled_plugins"
+    networks:
+      - cmnetwork
+  cm.webapi:
+    hostname: cm
+    container_name: cm
+    image: cm
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+      - rabbit
+    networks:
+      - cmnetwork
+    volumes:
+      - "./Katil.WebAPI/secrets/appsettings.Template:/app/secrets/appsettings.json"
+
+  cm.services.email.notification:
+    hostname: email-notification
+    container_name: email-notification
+    image: email-notification
+    build:
+      context: .
+      dockerfile: Dockerfile.EmailNotification
+    depends_on:
+      - rabbit    
+    ports:
+      - 8082:8082
+    networks:
+      - cmnetwork
+    volumes:
+      - "./Katil.Services/EmailNotification/EmailNotificationService/secrets/appsettings.Template:/app/secrets/appsettings.json"
+  db:
+    hostname: db
+    container_name: 'postgres'
+    image: postgres:9.5
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: project-name
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - cmnetwork
+volumes:
+  pgdata:
+    driver: local
+networks:
+  cmnetwork:
+    driver: bridge

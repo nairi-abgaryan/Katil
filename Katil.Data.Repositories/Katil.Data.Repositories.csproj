@@ -1,0 +1,73 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <CodeAnalysisRuleSet>..\StyleCopeRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Configurations>Debug;Release;DevServer;StagingServer</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'StagingServer|AnyCPU' ">
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
+ 
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DevServer|AnyCPU' ">
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers.Error" Version="1.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Katil.Business.Entities\Katil.Business.Entities.csproj" />
+    <ProjectReference Include="..\Katil.Common.Utilities\Katil.Common.Utilities.csproj" />
+    <ProjectReference Include="..\Katil.Data.Model\Katil.Data.Model.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Files\IFileDescriptionRepository.cs" />
+    <Compile Remove="Files\FileDescriptionRepository.cs" />
+    <Compile Remove="Files\ILinkedFileRepository.cs" />
+    <Compile Remove="User\DisputeUserRepository.cs" />
+    <Compile Remove="Files\CommonFileRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <_ResolveComReferenceCache Remove="obj\Debug\netcoreapp2.1\Katil.Data.Repositories.csproj.ResolveComReference.cache" />
+    <_ResolveComReferenceCache Remove="obj\Debug\netcoreapp2.1\Katil.Data.Repositories.csproj.ResolveComReference.cache" />
+  </ItemGroup>
+  <ItemGroup>
+    <IntermediateAssembly Remove="obj\Debug\netcoreapp2.1\Katil.Data.Repositories.dll" />
+    <IntermediateAssembly Remove="obj\Debug\netcoreapp2.1\Katil.Data.Repositories.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <_DebugSymbolsIntermediatePath Remove="obj\Debug\netcoreapp2.1\Katil.Data.Repositories.pdb" />
+    <_DebugSymbolsIntermediatePath Remove="obj\Debug\netcoreapp2.1\Katil.Data.Repositories.pdb" />
+  </ItemGroup>
+  <ItemGroup>
+    <_DeploymentManifestEntryPoint Remove="obj\Debug\netcoreapp2.1\Katil.Data.Repositories.dll" />
+    <_DeploymentManifestEntryPoint Remove="obj\Debug\netcoreapp2.1\Katil.Data.Repositories.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationManifest Remove="obj\Debug\netcoreapp2.1\Native.Katil.Data.Repositories.manifest" />
+    <ApplicationManifest Remove="obj\Debug\netcoreapp2.1\Native.Katil.Data.Repositories.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <DeployManifest Remove="obj\Debug\netcoreapp2.1\Katil.Data.Repositories.application" />
+    <DeployManifest Remove="obj\Debug\netcoreapp2.1\Katil.Data.Repositories.application" />
+  </ItemGroup>
+  <ItemGroup>
+    <_UnmanagedRegistrationCache Remove="obj\Katil.Data.Repositories.csproj.UnmanagedRegistration.cache" />
+  </ItemGroup>
+ </Project>
